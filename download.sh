@@ -7,6 +7,9 @@
 ################################################################################
 #!/bin/bash
 
+# For debugging this script.
+# set -x
+
 # Cannot put this into config.inc.sh.
 export TOP=`pwd`
 export INC=$TOP/includes
