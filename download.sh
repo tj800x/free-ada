@@ -8,7 +8,7 @@
 #!/bin/bash
 
 # For debugging this script.
-# set -x
+set -x
 
 # Cannot put this into config.inc.sh.
 export TOP=`pwd`
