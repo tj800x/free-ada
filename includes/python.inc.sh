@@ -1,6 +1,6 @@
 ########################################################################################################################
 # Filename    # python.inc
-# Purpose     # Python 2.7
+# Purpose     # Python 3.8
 # Description # Required by AdaCore's packages.
 # Copyright   # Copyright (C) 2011-2018 Luke A. Guest, David Rees.
 #             # All Rights Reserved.
@@ -57,7 +57,7 @@ function python()
         
         make DESTDIR=$STAGE_BASE_DIR altinstall &> $LOGPRE/$PYTHON_DIR-pkg.txt
         
-        strip $STAGE_BASE_DIR$INSTALL_DIR/bin/python2.7
+        strip $STAGE_BASE_DIR$INSTALL_DIR/bin/python3.8
 
         check_error .make-pkg-stage
 
@@ -116,7 +116,7 @@ function install_python_packages()
     if [ ! -f .installed-pip ]; then
         echo "  >> [2/$TASK_COUNT_TOTAL] Packaging PIP..."
 
-        python2.7 get-pip.py &> $LOGPRE/$DIRS-pip-install.txt
+        python3.8 get-pip.py &> $LOGPRE/$DIRS-pip-install.txt
 
         check_error .installed-pip
     fi
@@ -124,7 +124,7 @@ function install_python_packages()
     if [ ! -f .installed-mako ]; then
         echo "  >> [3/$TASK_COUNT_TOTAL] Packaging Mako..."
 
-        pip2.7 install mako &> $LOGPRE/$DIRS-mako-install.txt
+        pip3.8 install mako &> $LOGPRE/$DIRS-mako-install.txt
 
         check_error .installed-mako
     fi
@@ -132,31 +132,31 @@ function install_python_packages()
     if [ ! -f .installed-pyyaml ]; then
         echo "  >> [4/$TASK_COUNT_TOTAL] Packaging PyYAML..."
 
-        pip2.7 install pyyaml &> $LOGPRE/$DIRS-pyyaml-install.txt
+        pip3.8 install pyyaml &> $LOGPRE/$DIRS-pyyaml-install.txt
 
         check_error .installed-pyyaml
     fi
 
-    if [ ! -f .installed-enum ]; then
-        echo "  >> [5/$TASK_COUNT_TOTAL] Packaging Enum..."
-
-        pip2.7 install enum &> $LOGPRE/$DIRS-enum-install.txt
-
-        check_error .installed-enum
-    fi
-
-    if [ ! -f .installed-enum34 ]; then
-        echo "  >> [6/$TASK_COUNT_TOTAL] Packaging Enum34..."
-
-        pip2.7 install enum34 &> $LOGPRE/$DIRS-enum34-install.txt
-
-        check_error .installed-enum34
-    fi
+#    if [ ! -f .installed-enum ]; then
+#        echo "  >> [5/$TASK_COUNT_TOTAL] Packaging Enum..."
+#
+#        pip3.8 install enum &> $LOGPRE/$DIRS-enum-install.txt
+#
+#        check_error .installed-enum
+#    fi
+#
+#    if [ ! -f .installed-enum34 ]; then
+#        echo "  >> [6/$TASK_COUNT_TOTAL] Packaging Enum34..."
+#
+#        pip3.8 install enum34 &> $LOGPRE/$DIRS-enum34-install.txt
+#
+#        check_error .installed-enum34
+#    fi
 
     if [ ! -f .installed-funcy ]; then
         echo "  >> [7/$TASK_COUNT_TOTAL] Packaging Funcy..."
 
-        pip2.7 install funcy &> $LOGPRE/$DIRS-funcy-install.txt
+        pip3.8 install funcy &> $LOGPRE/$DIRS-funcy-install.txt
 
         check_error .installed-funcy
     fi
@@ -164,7 +164,7 @@ function install_python_packages()
     if [ ! -f .installed-docutils ]; then
         echo "  >> [8/$TASK_COUNT_TOTAL] Packaging DocUtils..."
 
-        pip2.7 install docutils &> $LOGPRE/$DIRS-docutils-install.txt
+        pip3.8 install docutils &> $LOGPRE/$DIRS-docutils-install.txt
 
         check_error .installed-docutils
     fi

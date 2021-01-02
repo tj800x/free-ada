@@ -20,7 +20,7 @@ export PROJECT_NAME=free-ada
 # PROJECT variable.
 # TODO: Put in a check when building cross compilers.
 ################################################################################
-export PROJECT=$PROJECT_NAME-9.2.0
+export PROJECT=$PROJECT_NAME-9.2.0t
 
 ################################################################################
 # INSTALL_BASE_DIR - This is where tar needs to change directory to.
@@ -107,22 +107,22 @@ export JOBS="-j $JOBS_NUM"
 # BINUTILS #####################################################################
 ################################################################################
 
-export BINUTILS_SNAPSHOT=n
+# Want 2.33.50 with a patch.  Try 2.33.90...no try 2.34
 
-#TRJ Should be Okay
+export BINUTILS_SNAPSHOT=n
 
 if [ $BINUTILS_SNAPSHOT == "y" ]; then
     # Snapshot
-    export BINUTILS_VERSION=2.31 # filename version
-    export BINUTILS_SRC_VERSION=2.31 # extracted version
-    export BINUTILS_MIRROR=http://ftp.vim.org/ftp/gnu/binutils #ftp://sourceware.org/pub/binutils/snapshots
+    export BINUTILS_VERSION=2.33.90 # filename version
+    export BINUTILS_SRC_VERSION=2.33.90 # extracted version
+    export BINUTILS_MIRROR=ftp://sourceware.org/pub/binutils/snapshots
     export BINUTILS_TARBALL=binutils-$BINUTILS_VERSION.tar.bz2
     export BINUTILS_DIR=binutils-$BINUTILS_SRC_VERSION
 else
     # Release
-    export BINUTILS_VERSION=2.32 # filename version
-    export BINUTILS_SRC_VERSION=2.32 # extracted version
-    export BINUTILS_MIRROR=http://ftp.vim.org/ftp/gnu/binutils  #ftp://sourceware.org/pub/binutils/releases
+    export BINUTILS_VERSION=2.34 # filename version
+    export BINUTILS_SRC_VERSION=2.34 # extracted version
+    export BINUTILS_MIRROR=ftp://sourceware.org/pub/binutils/releases
     export BINUTILS_TARBALL=binutils-$BINUTILS_VERSION.tar.bz2
     export BINUTILS_DIR=binutils-$BINUTILS_SRC_VERSION
 fi
@@ -130,13 +130,13 @@ fi
 export BINUTILS_TARBALL
 export BINUTILS_SRC_VERSION
 
-# TRJ -- Needs xz-utils
-
 ################################################################################
 # GDB ##########################################################################
 ################################################################################
-export GDB_VERSION=8.3.1 # filename version
-export GDB_SRC_VERSION=8.3.1 # extracted version
+# gdb-9-2020-20200429-199CE-src.tar.gz
+# 9.2 is closest, released on 5/22/2020
+export GDB_VERSION=9.2 # filename version
+export GDB_SRC_VERSION=9.2 # extracted version
 export GDB_MIRROR=ftp://www.mirrorservice.org/sites/ftp.gnu.org/gnu/gdb
 export GDB_TARBALL=gdb-$GDB_VERSION.tar.xz
 export GDB_DIR=gdb-$GDB_SRC_VERSION 
@@ -144,13 +144,14 @@ export GDB_DIR=gdb-$GDB_SRC_VERSION
 ################################################################################
 # GCC ##########################################################################
 ################################################################################
+# gcc-9-2020-20200429-19AA7-src.tar.gz
+# 9.2.  Maybe try 9.3
+#aa988998be8f85334665a6b049d5d9139408c250 is daily commit
 
 export NATIVE_LANGUAGES="c,c++,objc,obj-c++,ada"
 
 export GCC_RELEASE=y
 export GCC_TESTS=n
-
-#TRJ Should be okay
 
 if [ $GCC_RELEASE == "y" ]; then
     export GCC_VERSION=9.2.0 # filename version
@@ -174,19 +175,18 @@ fi
 ################################################################################
 
 # GMP (GNU Multiple Precision Arithmetic Library)
-#export GMP_VERSION=4.3.2
-#export GMP_VERSION=5.1.2
-#export GMP_VERSION=6.1.2
-export GMP_VERSION=6.2.1
+#gmp-6.1.2.tar.bz2
+
+export GMP_VERSION=6.1.2
 export GMP_MIRROR=ftp://ftp.gmplib.org/pub/gmp-$GMP_VERSION
 export GMP_TARBALL=gmp-$GMP_VERSION.tar.xz
 export GMP_DIR=gmp-$GMP_VERSION
 
 # MPC
-#export MPC_VERSION=0.8.1
-#export MPC_VERSION=1.0.2
+# mpc-1.0.3.tar.gz
 export MPC_VERSION=1.0.3
-export MPC_MIRROR=https://ftp.gnu.org/gnu/mpc  #http://www.multiprecision.org/mpc/download
+export MPC_MIRROR=http://www.multiprecision.org/mpc/download
+export MPC_MIRROR=https://ftp.gnu.org/gnu/mpc
 export MPC_TARBALL=mpc-$MPC_VERSION.tar.gz
 export MPC_DIR=mpc-$MPC_VERSION
 
@@ -203,25 +203,32 @@ export MPC_DIR=mpc-$MPC_VERSION
 #export MPFR_MIRROR=http://www.mpfr.org/mpfr-$MPFR_VERSION
 #export MPFR_PATCHES=http://www.mpfr.org/mpfr-$MPFR_VERSION/allpatches
 #export MPFR_VERSION=3.1.2
-#export MPFR_VERSION=3.1.5
-export MPFR_VERSION=4.1.0
-export MPFR_MIRROR=https://www.mpfr.org/mpfr-$MPFR_VERSION
+
+# mpfr-3.1.5.tar.bz2
+export MPFR_VERSION=3.1.5
+export MPFR_MIRROR=https://www.mpfr.org/mpfr-$MPFR_VERSION/
 export MPFR_PATCHES=
+#http://mpfr.loria.fr/mpfr-current/allpatches
 export MPFR_TARBALL=mpfr-$MPFR_VERSION.tar.xz
 export MPFR_DIR=mpfr-$MPFR_VERSION
 
 # ISL
 # The --with-isl configure option should be used if ISL is not installed in your
 # default library search path.
-export ISL_VERSION=0.18
+# ISL not specfied by Adacore
+
+export ISL_VERSION=0.16.1
 export ISL_MIRROR=ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/gcc/infrastructure/
+#export ISL_MIRROR=ftp://gcc.gnu.org/pub/gcc/infrastructure
 export ISL_TARBALL=isl-$ISL_VERSION.tar.bz2
 export ISL_DIR=isl-$ISL_VERSION
 
 ################################################################################
 # Python
 ################################################################################
-export PYTHON_VERSION=2.7.14
+#Python-3.7.2-patched-20200227-1D120-src.tar.gz
+
+export PYTHON_VERSION=3.7.2
 export PYTHON_MIRROR=https://www.python.org/ftp/python/$PYTHON_VERSION/
 export PYTHON_TARBALL=Python-$PYTHON_VERSION.tar.xz
 export PYTHON_DIR=Python-$PYTHON_VERSION
@@ -229,7 +236,7 @@ export PYTHON_DIR=Python-$PYTHON_VERSION
 ################################################################################
 # AdaCore GPL components #######################################################
 ################################################################################
-export GPL_YEAR=2018
+export GPL_YEAR=2020
 #export ASIS_HASH=51ecea080c3c6760cd024e8b467502de26f3c3f2
 #export ASIS_VERSION=asis-gpl-$GPL_YEAR-src
 #export GNATMEM_HASH=6de65bb7e300e299711f90396710ace741123656
@@ -241,28 +248,44 @@ export GPL_YEAR=2018
 #export FLORIST_VERSION=florist-gpl-$GPL_YEAR-src
 #export FLORIST_DIR=florist-src
 
-export ADACORE_DOWNLOAD_MIRROR="https://github.com/tj800x/" #https://www.codelabs.ch/download/ada/"
+export ADACORE_DOWNLOAD_MIRROR="Download-directly into archives https://www.codelabs.ch/download/ada/"
 export ADACORE_GITHUB="https://github.com/AdaCore"
+
+#gprbuild-2020-20200429-19BD2-src.tar.gz
+#next commit is 0502 219165d7c1caaf66a5ed2501fc17daa12603980c
 
 export GPRBUILD_DIR="gprbuild"
 export GPRBUILD_GIT="${ADACORE_GITHUB}/gprbuild.git"
 export GPRBUILD_BRANCH="master"
-export GPRBUILD_COMMIT="a10ee080de8e4ca0db9d4cb98d434b9307afccaf"
+#export GPRBUILD_COMMIT="a10ee080de8e4ca0db9d4cb98d434b9307afccaf"
+export GPRBUILD_COMMIT="219165d7c1caaf66a5ed2501fc17daa12603980c"
 
+
+#xmlada-2020-20200429-19A99-src.tar.gz
+#closest commit is 0424 e5bbafed1eaa07037d17eb7a6b1b169bf38dcfef
 export XMLADA_DIR="xmlada"
 export XMLADA_GIT="${ADACORE_GITHUB}/xmlada.git"
 export XMLADA_BRANCH="master"
-export XMLADA_COMMIT="b9344050e922545c0dbd4e1dabe8564705153bf7"
+#export XMLADA_COMMIT="b9344050e922545c0dbd4e1dabe8564705153bf7"
+export XMLADA_COMMIT="e5bbafed1eaa07037d17eb7a6b1b169bf38dcfef"
+
+
+#gnatcoll-core-2020-20200429-19B7C-src.tar.gz
+#best commit seems 0414 5e25a5bc877e91259d9667081fbf3324862f9c8c
+#later commit seems major
 
 export GNATCOLL_CORE_DIR="gnatcoll-core"
 export GNATCOLL_CORE_GIT="${ADACORE_GITHUB}/gnatcoll-core.git"
 export GNATCOLL_CORE_BRANCH="master"
 export GNATCOLL_CORE_COMMIT="9203fe1b1a3efc7d3841828bafb4763f02e261a2"
 
+#gnatcoll-bindings-20.0-20191009-1B2EA-src.tar.gz
+# Best patch seems 0513 d658e6f9f437a77728cbf97e36792ac632670d76
 export GNATCOLL_BINDINGS_DIR="gnatcoll-bindings"
 export GNATCOLL_BINDINGS_GIT="${ADACORE_GITHUB}/gnatcoll-bindings.git"
 export GNATCOLL_BINDINGS_BRANCH="master"
-export GNATCOLL_BINDINGS_COMMIT="2c7b8c22550c3bdb4fa43b7149a605554f7f1caf"
+#export GNATCOLL_BINDINGS_COMMIT="2c7b8c22550c3bdb4fa43b7149a605554f7f1caf"
+export GNATCOLL_BINDINGS_COMMIT="d658e6f9f437a77728cbf97e36792ac632670d76"
 export GNATCOLL_BINDINGS_GMP=y
 export GNATCOLL_BINDINGS_ICONV=y
 export GNATCOLL_BINDINGS_LZMA=y
@@ -272,35 +295,58 @@ export GNATCOLL_BINDINGS_READLINE=y
 export GNATCOLL_BINDINGS_SYSLOG=y
 export GNATCOLL_BINDINGS_ZLIB=y
 
+#???????
+#
+# best commit seems 0518 ef5dd6b5057322f7206d825d0999c7789ffa52f1
 export GNATCOLL_DB_DIR="gnatcoll-db"
 export GNATCOLL_DB_GIT="${ADACORE_GITHUB}/gnatcoll-db.git"
 export GNATCOLL_DB_BRANCH="master"
-export GNATCOLL_DB_COMMIT="a75c22bf43876fd299b30f65e472898bf9a0971e"
+#export GNATCOLL_DB_COMMIT="a75c22bf43876fd299b30f65e472898bf9a0971e"
+export GNATCOLL_DB_COMMIT="ef5dd6b5057322f7206d825d0999c7789ffa52f1"
 export GNATCOLL_DB=y
+
+#langkit-2020-20200429-19994-src.tar.gz
+# best commit seems 0424 23e804830f44236ba33bc4793d8d12c36d9ba5d3
 
 export LANGKIT_DIR="langkit"
 export LANGKIT_GIT="${ADACORE_GITHUB}/langkit.git"
 export LANGKIT_BRANCH="stable"
 export LANGKIT_COMMIT="8f8d6b56d9c63a27b29a6c984bec62fb5df40309"
+export LANGKIT_COMMIT="23e804830f44236ba33bc4793d8d12c36d9ba5d3"
 export LANGKIT_PATCHES="${FILES}/${LANGKIT_DIR}/0001-Add-view-conversion-to-fix-compile.patch"
 
+#libadalang-2020-20200429-19982-src.tar.gz
+# commit on 0429 c7c798acf086c85dbf37ceca19ffd0e74f2d51c4
 export LIBADALANG_DIR="libadalang"
 export LIBADALANG_GIT="${ADACORE_GITHUB}/libadalang.git"
 export LIBADALANG_BRANCH="stable"
-export LIBADALANG_COMMIT="85539c5896f5841b5b8d5007354f5bdc73663f83"
+#export LIBADALANG_COMMIT="85539c5896f5841b5b8d5007354f5bdc73663f83"
+export LIBADALANG_COMMIT="c7c798acf086c85dbf37ceca19ffd0e74f2d51c4"
 
+#libadalang-tools-2020-20200429-1998C-src.tar.gz
+# commit on 0429 a4f4f95b113a40c11fbbb4de45c84c5ead5acb84
 export LIBADALANG_TOOLS_DIR="libadalang-tools"
 export LIBADALANG_TOOLS_GIT="${ADACORE_GITHUB}/libadalang-tools.git"
 export LIBADALANG_TOOLS_BRANCH="master"
-export LIBADALANG_TOOLS_COMMIT="3c25ee812ceb1d944f8031235e72af98aa4ee8ea"
+#export LIBADALANG_TOOLS_COMMIT="3c25ee812ceb1d944f8031235e72af98aa4ee8ea"
+export LIBADALANG_TOOLS_COMMIT="a4f4f95b113a40c11fbbb4de45c84c5ead5acb84"
 
+
+#aunit-2020-20200429-19B6C-src.tar.gz
+# best patch 0515 729b14d63de660187fb79c5c9f1c303d788e3528
 export AUNIT_DIR="aunit"
 export AUNIT_GIT="${ADACORE_GITHUB}/aunit.git"
 export AUNIT_BRANCH="master"
-export AUNIT_COMMIT="fd9801b79b56f5dd55ab1e6500f16daf5dd12fc9"
+#export AUNIT_COMMIT="fd9801b79b56f5dd55ab1e6500f16daf5dd12fc9"
+export AUNIT_COMMIT="729b14d63de660187fb79c5c9f1c303d788e3528"
 
 export GNAT_UTIL_DIR=gnat_util
 
+# found asis-gpl-2018-src.tar.gz at http://ravenports.elderlinux.org/distcache/ada/
+# https://github.com/simonjwright/ASIS has ASIS-for-GNAT asis-gpl-2019
+# https://github.com/simonjwright/ASIS/commit/00398c1c3859e60077b08c30f9fb6e14eb9b3d44
+
+#?????
 export ASIS_GPL_YEAR=2016
 export ASIS_HASH=57399029c7a447658e0aff71
 export ASIS_VERSION_PREFIX=asis-gpl-${ASIS_GPL_YEAR}-src
